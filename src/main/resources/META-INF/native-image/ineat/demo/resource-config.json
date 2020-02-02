@@ -1,0 +1,7 @@
+{
+  "resources":[
+    {"pattern":"META-INF/services/org.eclipse.jetty.http.HttpFieldPreEncoder"},
+    {"pattern":"public/.*"},
+    {"pattern":"templates/.*\\.mustache$"}
+  ]
+}

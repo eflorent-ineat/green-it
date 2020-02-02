@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  graalvm:
+    image: graalvm
+    build:
+      context: .
+      dockerfile: Dockerfile.graalvm
+  app:
+    image: app
+    build:
+      context: .
+      dockerfile: Dockerfile
