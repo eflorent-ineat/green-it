@@ -5,13 +5,13 @@
 - comment ca marche ?
 - comment adapter votre projet
 
-code source example
+[code source example](https://github.com/eflorent-ineat/green-it/)
 
 ----
 
 Le 14 Janvier 2020 Oracle a publié la première version LTS de GraalVM.
 
-Cette version `19.3.1` ajoute le support de Java 11 et dispose du tag *Long Term Support* (LTS).
+Cette version `19.3.1` ajoute le support de Java 11.
 
 J'avais put avec succès compiler des applications complexes avec la version communauté (CE) précédente `19.2.1`.
 Je vous propose de partager mes recettes de compilation avec cette dernière version et de profiter 
@@ -24,9 +24,14 @@ comme en GoLang.
 - [des temps de démarage 50 fois plus rapides](https://www.graalvm.org/docs/why-graal/#for-microservices-frameworks).
 - la possibilité d'intégrer d'autres langages dans l'exécutable (Node, Ruby, R, Python, C++)
 
+Plus de 40 ingénieurs Oracle on travaillé pendant 3 ans sur le projet GraalVM un compilateur et Truffle outils AST
+(Abstract Syntax Tree) afin de produire un outil qui permettrait de fabriquer des nouveaux language de programmations.
+
+
+
 ## Quelles sont les limitations
 
-En principe, par design, n'importe quelle application peut être compilée mais il y a quelques différences de fonctionnement:
+Par design, n'importe quelle application peut être compilée mais il y a quelques différences de fonctionnement:
 l'introspection n'est pas possible. Il y a au départ une analyse statique du code. 
 Toutefois il est possible de donner un indice au compilateur la liste des classes pertinentes ainsi 
 que un outils optionnel pour lister ces classes.
@@ -37,7 +42,14 @@ que un outils optionnel pour lister ces classes.
  `org.joda.time.DateTime ou `org.h2.engine.Engine` car ils utilise l'introspection. 
  [Voici un exemple](https://gist.github.com/eflorent-ineat/eec780e5ecb53a39c0c2f681671f31ce) de configuration du compilateur AOT GraalVM issue d'un projet réel.
 
-## Comment ca marche
+Les executables produits par GraalVM ciblent un plateforme  parmis:
+- amd64 linux
+- amd64 windows
+- amd64 darwin
+dans cet exemple je ne construit que des executables amd64 Linux bien que la meme application puisse etre compilée 
+pour MacOS (darwin) et Windows sur Azure DevOps par exemple.
+
+## Comment ça marche
  
 Je vous propose quelques explications et les outils pour:
   
