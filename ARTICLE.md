@@ -49,7 +49,7 @@ Les executables produits par GraalVM ciblent un plateforme  parmis:
 - amd64 windows
 - amd64 darwin
 
-Donc les applications Java compilées ne sont pas portables mais peut être compilé pour les cibles courantes.
+Donc les applications Java compilées ne sont pas portables mais peuvent être compilées pour les cibles courantes.
 
 Dans cet exemple je ne construit que des executables amd64 Linux bien que la meme application puisse etre compilée 
 pour MacOS (darwin) et Windows sur Azure DevOps par exemple.
@@ -145,7 +145,7 @@ make prepare
 make clean native
 ```
 
-Et voilà votre exécutable se trouve dans `target/app` si vous avez cloné le projet exemple.
+Et voilà votre exécutable se trouve dans `target/app` si vous avez cloné [le projet exemple](https://github.com/eflorent-ineat/green-it/).
 
 La principale difficulté que vous rencontrerez sera avec les introspections, mais là encore pas de problème!
 Munissez vous de votre classpath complet (votre IDE l'affiche à la compilation) et adapter
@@ -158,8 +158,32 @@ Vous rencontrerez surement quelques questions, mais le support sur le web est ex
 surement la bonne réponse, par exemple sous Mac vous pouvez être amené a augmenter la mémoire allouée a Docker 
 pour l'étape de compilation développeur (rappelez vous l'empreinte mémoire de votre application va être divisée par 5)
 
-Voilà pour finir je vous propose une intégration dans une pipeline Drone CI dans le fichier `drone.yaml`
- ainsi que la construction  d'un container ultra-lean avec l'appel de `make container` :
+Voilà pour finir je vous propose une intégration dans une pipeline Drone CI dans le fichier `drone.yaml` en quelques étapes:
+
+- la première étape vous dote d'une image Docker avec GraalVM et Maven
+
+```
+- name: prepare
+    image: docker:latest
+    privileged: true
+    volumes:
+        - name: dockersock
+        path: /var/run/docker.sock
+    commands:
+        - docker build -t graalvm:snapshot -f Dockerfile.graalvm .
+
+```
+
+- la deuxième étape appelle la compilation, simplement:
+
+````
+- name: build
+    image: graalvm:snapshot
+    commands:
+        - mvn package
+`````
+
+Vous pouvez au besoin construire un container de la sorte avec l'appel de `make container` :
 
 ```
 FROM scratch
@@ -168,8 +192,9 @@ COPY target/app /app
 CMD ["/app"]
 ```
 
-Sentez vous libre de cloner le projet disponible ici, de poser des questions ou de 
- proposer des solutions complémentaires.
+Sentez vous libre de cloner le projet disponible ici, de poser des questions ou de proposer des solutions complémentaires.
+
+
  
  
 
