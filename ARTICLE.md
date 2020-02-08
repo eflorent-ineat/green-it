@@ -17,13 +17,14 @@ GraalVM est un de mes outils d'informaticien eco-responsable. Voici son histoire
 
 - 14 Janvier 2020, GraalVM `19.3.1` 1er version LTS, ajoute le support de Java 11,
 - 17 avril 2018, GraalVM `19.0`, 1ere version stable,
-- 31 Juilklet 2012, Oracle communique sur ses recherches à propos de Truffle,
+- 31 Juillet 2012, Oracle à propos de ses recherche sur Truffle,
 
-car en effet GraalVM est basé sur Truffle, un projet qui a employé plus de 40 personnes pendant plus de 4 ans, et qui un produit sans équivalent, un environnement d'execution auto-optimisé.
+car en effet GraalVM utilise Truffle, un projet sans équivalent.
+Truffle est un framework d'interpretation mutli-languages.
+C'est un environnement d'execution auto-optimisé,
+Truffle a employé plus de 40 personnes pendant plus de 4 ans.
 
-
-Je vous propose de partager mes recettes de compilation avec cette dernière version et de profiter 
-de la révolution native:
+Je vous propose de partager mes recettes de compilation avec cette dernière version et de profiter de la révolution native:
 
 - des déploiements trop pratiques: un simple exécutable, de seulement quelques mega, 
 n'a pas besoin de JVM ou de dépendances, il va être complètement indépendant (standalone EXE), 
