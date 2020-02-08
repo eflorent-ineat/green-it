@@ -9,11 +9,15 @@
 
 ----
 
-Le 14 Janvier 2020 Oracle a publié la première version LTS de GraalVM.
+Avoir des applications très performantes est un moyen de faire de l'informatique durable. 
+Depuis quelques temps je m'intérresse à la performance des applications et, comme développeurs Java,
+je me suis naturellement tourné vers GraalVM pour améliorer la performance de mes microservices.
 
-Cette version `19.3.1` ajoute le support de Java 11.
+GraalVM `19.3.1` LTS de GraalVM est un de mes outils d'informaticien eco-responsable. Voici son histoire:
 
-J'avais put avec succès compiler des applications complexes avec la version communauté (CE) précédente `19.2.1`.
+- 17 avril 2018, 1ere version
+- 17 avril 2018 19.0.0
+
 Je vous propose de partager mes recettes de compilation avec cette dernière version et de profiter 
 de la révolution native:
 
@@ -27,36 +31,37 @@ comme en GoLang.
 Plus de 40 ingénieurs Oracle on travaillé pendant 3 ans sur le projet GraalVM un compilateur et Truffle outils AST
 (Abstract Syntax Tree) afin de produire un outil qui permettrait de fabriquer des nouveaux language de programmations.
 
-
-
 ## Quelles sont les limitations
 
-Par design, n'importe quelle application peut être compilée mais il y a quelques différences de fonctionnement:
-l'introspection n'est pas possible. Il y a au départ une analyse statique du code. 
-Toutefois il est possible de donner un indice au compilateur la liste des classes pertinentes ainsi 
-que un outils optionnel pour lister ces classes.
+Par design, n'importe quelle application peut être compilée mais il y des différences , 
+en particulier l'introspection n'est pas possible. Il y a au départ une analyse statique du code. 
+Toutefois il est possible de donner un indice au compilateur: la liste des classes supplémentaires à charger,
+et un outil pour lister les classes qui ne peuvent pas être détéctée par analyse statique du code mais par analyse dynamique.
 
  Personnellement je n'ai trouvé cette limitation très difficile. Par exemple en utilisant ORMLite, 
  toutes les classes DAO doivent être renseignées ce n'est pas trop gênant une fois que l'on a compris.
- Jetty marche tous seul par exemple, sur un projet Java 8 j'ai pu avoir a notifier pour 
- `org.joda.time.DateTime ou `org.h2.engine.Engine` car ils utilise l'introspection. 
+ Jetty marche tous seul par exemple. Sur un projet Java 8 j'ai pu avoir a notifier pour 
+ `org.joda.time.DateTime` ou `org.h2.engine.Engine` car ils utilisent l'introspection. 
  [Voici un exemple](https://gist.github.com/eflorent-ineat/eec780e5ecb53a39c0c2f681671f31ce) de configuration du compilateur AOT GraalVM issue d'un projet réel.
 
 Les executables produits par GraalVM ciblent un plateforme  parmis:
 - amd64 linux
 - amd64 windows
 - amd64 darwin
-dans cet exemple je ne construit que des executables amd64 Linux bien que la meme application puisse etre compilée 
+
+Donc les applications Java compilées ne sont pas portables mais peut être compilé pour les cibles courantes.
+
+Dans cet exemple je ne construit que des executables amd64 Linux bien que la meme application puisse etre compilée 
 pour MacOS (darwin) et Windows sur Azure DevOps par exemple.
 
-## Comment ça marche
- 
 Je vous propose quelques explications et les outils pour:
   
  - construire localement des exécutables via docker pour une faible empreinte
  - construire un environnement d'intégration continue pour déployer des  exectables natifs à partir de code Java 11 (et en dessous)
 
- GraalVM propose au développeurs Java deux outils essentiels, `native-image` et `native-image-agent` 
+## Comment ça marche
+ 
+GraalVM propose au développeurs Java deux outils essentiels, `native-image` et `native-image-agent` 
 Il y a aussi un bien pratique `native-image-maven-plugin`.
    
  - `native-image` , va parcourir *statiquement* votre code, celui des dépendances, et
@@ -65,8 +70,7 @@ Il y a aussi un bien pratique `native-image-maven-plugin`.
     
  L'instanciation statique et la compilation par avance (Ahead Of Time ou AOT) va avoir 
  [des limittes](https://www.graalvm.org/docs/reference-manual/native-image/#tracing-agent) mais on peut les dépasser: 
- - l'utilitaire `native-image-agent`  aussi 
- appelé [Tracing Agent](https://www.graalvm.org/docs/reference-manual/native-image/#tracing-agent)
+ - l'utilitaire `native-image-agent`  ou [Tracing Agent](https://www.graalvm.org/docs/reference-manual/native-image/#tracing-agent)
   permet à partir d'un jar intermédiaire, de compléter les classes et les ressources appelées 
   par *instanciation dynamique*, c'est à dire par l'application en marche.
    Par exemple vous pourrez dérouler une suite de tests avec le tracing agent pour repérer les
