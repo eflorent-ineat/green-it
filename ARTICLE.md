@@ -39,9 +39,14 @@ comme en GoLang.
 ## Quelles sont les limitations
 
 Par design, n'importe quelle application peut être compilée mais il y des différences , 
-en particulier l'introspection n'est pas possible. Il y a au départ une analyse statique du code. 
-Toutefois il est possible de donner un indice au compilateur: la liste des classes supplémentaires à charger,
-et un outil pour lister les classes qui ne peuvent pas être détéctée par analyse statique du code mais par analyse dynamique.
+en particulier l'introspection n'est pas possible. 
+
+Il y a au départ une analyse **statique** du code. 
+
+
+Toutefois il est possible de donner un indice au compilateur: la liste des classes supplémentaires à charger.
+
+Oracle fourni un outil pour lister les classes qui ne peuvent pas être détéctée par analyse statique du code mais par analyse **dynamique**.
 
  Personnellement je n'ai trouvé cette limitation très difficile. Par exemple en utilisant ORMLite, 
  toutes les classes DAO doivent être renseignées ce n'est pas trop gênant une fois que l'on a compris.
@@ -77,7 +82,7 @@ Il y a aussi un bien pratique `native-image-maven-plugin`.
  [des limittes](https://www.graalvm.org/docs/reference-manual/native-image/#tracing-agent) mais on peut les dépasser: 
  - l'utilitaire `native-image-agent`  ou [Tracing Agent](https://www.graalvm.org/docs/reference-manual/native-image/#tracing-agent)
   permet à partir d'un jar intermédiaire, de compléter les classes et les ressources appelées 
-  par *instanciation dynamique*, c'est à dire par l'application en marche.
+  par **instanciation dynamique**, c'est à dire par l'application en marche.
    Par exemple vous pourrez dérouler une suite de tests avec le tracing agent pour repérer les
    classes appelées par introspection.
 - Enfin,  `native-image-maven-plugin` recherche automatiquement un fichier  
