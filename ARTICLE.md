@@ -13,10 +13,14 @@ Avoir des applications très performantes est un moyen de faire de l'informatiqu
 Depuis quelques temps je m'intérresse à la performance des applications et, comme développeurs Java,
 je me suis naturellement tourné vers GraalVM pour améliorer la performance de mes microservices.
 
-GraalVM `19.3.1` LTS de GraalVM est un de mes outils d'informaticien eco-responsable. Voici son histoire:
+GraalVM est un de mes outils d'informaticien eco-responsable. Voici son histoire:
 
-- 17 avril 2018, 1ere version
-- 17 avril 2018 19.0.0
+- 14 Janvier 2020, GraalVM `19.3.1` 1er version LTS, ajoute le support de Java 11,
+- 17 avril 2018, GraalVM `19.0`, 1ere version stable,
+- 31 Juilklet 2012, Oracle communique sur ses recherches à propos de Truffle,
+
+car en effet GraalVM est basé sur Truffle, un projet qui a employé plus de 40 personnes pendant plus de 4 ans, et qui un produit sans équivalent, un environnement d'execution auto-optimisé.
+
 
 Je vous propose de partager mes recettes de compilation avec cette dernière version et de profiter 
 de la révolution native:
