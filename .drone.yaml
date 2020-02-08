@@ -1,0 +1,55 @@
+    kind: pipeline
+    type: docker
+    name: default-ci
+
+    steps:
+      - name: prepare
+        image: docker:latest
+        privileged: true
+        volumes:
+          - name: dockersock
+            path: /var/run/docker.sock
+        commands:
+          - docker build -t graalvm:snapshot -f Dockerfile.graalvm .
+
+
+      - name: test
+        image: maven:3-jdk-11
+        commands:
+          - mvn test -B
+
+      - name: build
+        image: graalvm:snapshot
+        commands:
+          - mvn package
+
+      - name: smoke_test
+        image: alpine
+        commands:
+          - ./target/app --help
+
+      - name: release
+        image: plugins/gitea-release:linux-amd64
+        checksum:
+          - md5
+          - sha1
+          - sha256
+        settings:
+          files:
+            - target/app
+          title: snapshot
+          base_url: http://gitea
+          api_key:
+            from_secret: gitea_token
+          draft: true
+          prerelease: true
+          insecure: true
+
+    volumes:
+      - name: dockersock
+        host:
+          path: /var/run/docker.sock
+
+    trigger:
+      branch:
+        - master
