@@ -22,7 +22,8 @@ GraalVM est un de mes outils d'informaticien eco-responsable. Voici son histoire
 car en effet GraalVM utilise Truffle, un projet sans équivalent.
 Truffle est un framework d'interpretation mutli-languages.
 C'est un environnement d'execution auto-optimisé,
-Truffle a employé plus de 40 personnes pendant plus de 4 ans.
+Plus de 40 ingénieurs Oracle on travaillé pendant 3 ans sur le projet GraalVM un compilateur et Truffle outils AST
+(Abstract Syntax Tree) afin de produire une version stable.
 
 Je vous propose de partager mes recettes de compilation avec cette dernière version et de profiter de la révolution native:
 
@@ -33,8 +34,7 @@ comme en GoLang.
 - [des temps de démarage 50 fois plus rapides](https://www.graalvm.org/docs/why-graal/#for-microservices-frameworks).
 - la possibilité d'intégrer d'autres langages dans l'exécutable (Node, Ruby, R, Python, C++)
 
-Plus de 40 ingénieurs Oracle on travaillé pendant 3 ans sur le projet GraalVM un compilateur et Truffle outils AST
-(Abstract Syntax Tree) afin de produire un outil qui permettrait de fabriquer des nouveaux language de programmations.
+
 
 ## Quelles sont les limitations
 
