@@ -51,8 +51,8 @@ Oracle fourni un outil pour lister les classes qui ne peuvent pas être détéct
  Personnellement je n'ai trouvé cette limitation très difficile. Par exemple en utilisant ORMLite, 
  toutes les classes DAO doivent être renseignées ce n'est pas trop gênant une fois que l'on a compris.
  Jetty marche tous seul par exemple. Sur un projet Java 8 j'ai pu avoir a notifier pour 
- `org.joda.time.DateTime` ou `org.h2.engine.Engine` car ils utilisent l'introspection. 
- [Voici un exemple](https://gist.github.com/eflorent-ineat/eec780e5ecb53a39c0c2f681671f31ce) de configuration du compilateur AOT GraalVM issue d'un projet réel.
+ `org.joda.time.DateTime` ou `org.h2.engine.Engine` car ils utilisent l'introspection: 
+ [voici un exemple](https://gist.github.com/eflorent-ineat/eec780e5ecb53a39c0c2f681671f31ce) de configuration du compilateur AOT GraalVM issue d'un projet réel.
 
 Les executables produits par GraalVM ciblent un plateforme  parmis:
 - amd64 linux
@@ -161,7 +161,7 @@ La principale difficulté que vous rencontrerez sera avec les introspections, ma
 Munissez vous de votre classpath complet (votre IDE l'affiche à la compilation) et adapter
 le classpath a la ligne ou il y a `-cp ...`, exécuter ensuite `make configure-native`. Tandis que votre 
 application s'exécute (vous pouvez lui faire réaliser quelques action), `native-agent` va écrire pour vous les 
-introspections. exécuter les tests unitaires ici.
+introspections: exécuter les tests unitaires ici.
 
 
 Vous rencontrerez surement quelques questions, mais le support sur le web est excellent, vous trouverez 
