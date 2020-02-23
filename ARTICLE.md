@@ -91,6 +91,8 @@ Il y a aussi un bien pratique `native-image-maven-plugin`.
  le répertoire git lié à cet article.
  
 - `Xxx.class.getClassLoader(xxx)` retourne null. Avec SubstrateVM, vous devez utiliser `ClassLoader.getSystemClassLoader()` ou `Thread.getContextClassLoader()`.
+
+- `Image build request failed with exit status 137` indique un manque de mémoire. Si vous compilez avec Docker sous MacOS vous pouvez augmenter la mémoire allouée à Docker dans les préferences du service Docker.
  
 # comment adapter votre projet étape par étape
 
