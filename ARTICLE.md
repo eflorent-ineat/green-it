@@ -90,6 +90,8 @@ Il y a aussi un bien pratique `native-image-maven-plugin`.
  et utilise son contenu, vous trouverez un exemple contenant les options essentielles  dans
  le répertoire git lié à cet article.
  
+- `Xxx.class.getClassLoader(xxx)` retourne null. Avec SubstrateVM, vous devez utiliser `ClassLoader.getSystemClassLoader()` ou `Thread.getContextClassLoader()`.
+ 
 # comment adapter votre projet étape par étape
 
 - ajouter une dépendance Maven facultative, utile pour `native-image-agent`:
