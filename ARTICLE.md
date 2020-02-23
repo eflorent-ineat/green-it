@@ -44,7 +44,8 @@ en particulier l'introspection n'est pas possible.
 Il y a au départ une analyse **statique** du code. 
 
 
-Toutefois il est possible de donner un indice au compilateur: la liste des classes supplémentaires à charger.
+Toutefois il est possible de donner un indice au compilateur: la liste des 
+es supplémentaires à charger.
 
 Oracle fourni un outil pour lister les classes qui ne peuvent pas être détéctée par analyse statique du code mais par analyse **dynamique**.
 
@@ -90,7 +91,13 @@ Il y a aussi un bien pratique `native-image-maven-plugin`.
  et utilise son contenu, vous trouverez un exemple contenant les options essentielles  dans
  le répertoire git lié à cet article.
  
-- `Xxx.class.getClassLoader(xxx)` retourne null. Avec SubstrateVM, vous devez utiliser `ClassLoader.getSystemClassLoader()` ou `Thread.getContextClassLoader()`.
+- `Xxx.class.getClassLoader(xxx)` retourne null. Avec SubstrateVM, vous devez utiliser `ClassLoader.getSystemClassLoader()` ou `Thread.getContextClassLoader()`. Seulement `getResourceAsStream` fonctionne:
+
+```
+ClassLoader cLoader = ClassLoader.getSystemClassLoader();
+InputStream is = cLoader.getResourceAsStream("app.properties");
+properties.load(is);
+```
 
 - `Image build request failed with exit status 137` indique un manque de mémoire. Si vous compilez avec Docker sous MacOS vous pouvez augmenter la mémoire allouée à Docker dans les préferences du service Docker.
  
